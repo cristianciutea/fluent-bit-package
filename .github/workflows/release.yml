@@ -11,7 +11,7 @@ jobs:
 
   linux:
 
-    name: Build linux
+    name: Build linux amd64
     runs-on:  ubuntu-16.04
 
     steps:
@@ -23,7 +23,7 @@ jobs:
     - name: Print version
       run: echo "FB_LINUX = ${{ env.FB_LINUX_VERSION }}"  
 
-    - name: Download and compile FB for linux
+    - name: Download and compile FB for linux amd64
       run: |  
         mkdir -p target/fb/tmp
         mkdir -p $GITHUB_WORKSPACE/artifact
@@ -46,7 +46,7 @@ jobs:
     
   arm64_job:
 
-    name: Build arm64
+    name: Build linux arm64
     runs-on:  ubuntu-16.04
 
     steps:
@@ -58,10 +58,10 @@ jobs:
     - name: Print version
       run: echo "FB_LINUX = ${{ env.FB_LINUX_VERSION }}"  
       
-    - name: Download and compile FB for linuxARM
+    - name: Download and compile FB for linux arm64
       uses: uraimo/run-on-arch-action@v2.0.5
       with:
-        arch: arm64
+        arch: aarch64
         distro: ubuntu16.04
         githubToken: ${{ secrets.GITHUB_TOKEN }}
         env: |
@@ -100,7 +100,7 @@ jobs:
   
   arm32_job:
 
-    name: Build arm32
+    name: Build linux arm32
     runs-on: ubuntu-16.04
 
     steps:
@@ -112,7 +112,7 @@ jobs:
     - name: Print version
       run: echo "FB_LINUX = ${{ env.FB_LINUX_VERSION }}"  
       
-    - name: Download and compile FB for linuxARM
+    - name: Download and compile FB for linux arm32
       uses: uraimo/run-on-arch-action@v2.0.5
       with:
         arch: armv7
