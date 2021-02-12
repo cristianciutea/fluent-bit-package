@@ -9,9 +9,9 @@ on:
 
 jobs:
 
-  linux:
+  amd64_job:
 
-    name: Build linux amd64
+    name: Build Linux amd64
     runs-on:  ubuntu-16.04
 
     steps:
@@ -23,7 +23,7 @@ jobs:
     - name: Print version
       run: echo "FB_LINUX = ${{ env.FB_LINUX_VERSION }}"  
 
-    - name: Download and compile FB for linux amd64
+    - name: Download and compile FB for Linux amd64
       run: |  
         mkdir -p target/fb/tmp
         mkdir -p $GITHUB_WORKSPACE/artifact
@@ -46,7 +46,7 @@ jobs:
     
   arm64_job:
 
-    name: Build linux arm64
+    name: Build Linux arm64
     runs-on:  ubuntu-16.04
 
     steps:
@@ -58,7 +58,7 @@ jobs:
     - name: Print version
       run: echo "FB_LINUX = ${{ env.FB_LINUX_VERSION }}"  
       
-    - name: Download and compile FB for linux arm64
+    - name: Download and compile FB for Linux arm64
       uses: uraimo/run-on-arch-action@v2.0.5
       with:
         arch: aarch64
@@ -98,9 +98,9 @@ jobs:
         path: artifact
 
   
-  arm32_job:
+  arm_job:
 
-    name: Build linux arm32
+    name: Build Linux arm
     runs-on: ubuntu-16.04
 
     steps:
@@ -112,7 +112,7 @@ jobs:
     - name: Print version
       run: echo "FB_LINUX = ${{ env.FB_LINUX_VERSION }}"  
       
-    - name: Download and compile FB for linux arm32
+    - name: Download and compile FB for Linux arm
       uses: uraimo/run-on-arch-action@v2.0.5
       with:
         arch: armv7
@@ -144,18 +144,18 @@ jobs:
           make
           pushd bin
 
-          tar -czf ../../../artifact/nrfb-linux-arm32.tar.gz fluent-bit
+          tar -czf ../../../artifact/nrfb-linux-arm.tar.gz fluent-bit
 
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: nrfb-linux-arm32.tar.gz
+        name: nrfb-linux-arm.tar.gz
         path: artifact
   
   win32:
 
-    name: Build win32
+    name: Build Windows 386
     runs-on: ubuntu-16.04
 
     steps:
@@ -186,7 +186,7 @@ jobs:
 
   win64:
 
-    name: Build win64
+    name: Build Windows amd64
     runs-on: ubuntu-16.04
 
     steps:
@@ -213,13 +213,13 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nrfb-windows-amd64.zip
-        path: artifact/
+        path: artifact
 
   publish:
 
     name: Publish artifact as assets
     runs-on: ubuntu-16.04
-    needs: [linux, arm64_job, arm32_job, win32, win64]
+    needs: [amd64_job, arm64_job, arm_job, win32, win64]
 
     steps:
     - uses: actions/checkout@v2
@@ -257,7 +257,7 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload linux Package 
+    - name: Upload Linux amd64 Package 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -267,27 +267,27 @@ jobs:
         asset_name: fb-linux-amd64.tar.gz
         asset_content_type: application/gzip
 
-    - name: Upload arm64 Package 
+    - name: Upload Linux arm64 Package 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./nrfb-linux-arm64.tar.gz
-        asset_name: fb-linux-arm32.tar.gz
+        asset_name: fb-linux-arm64.tar.gz
         asset_content_type: application/gzip    
 
-    - name: Upload arm32 Package 
+    - name: Upload Linux arm Package 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-arm32.tar.gz
-        asset_name: fb-linux-arm32.tar.gz
+        asset_path: ./nrfb-linux-arm.tar.gz
+        asset_name: fb-linux-arm.tar.gz
         asset_content_type: application/gzip  
 
-    - name: Upload win32 Package 
+    - name: Upload Windows 386 Package 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -297,12 +297,12 @@ jobs:
         asset_name: fb-windows-386.zip
         asset_content_type: application/zip     
               
-    - name: Upload win64 Package 
+    - name: Upload Windows amd64 Package 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-windows-386.zip
-        asset_name: fb-windows-386.zip
+        asset_path: ./nrfb-windows-amd64.zip
+        asset_name: fb-windows-amd64.zip
         asset_content_type: application/zip                  
