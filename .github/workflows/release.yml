@@ -64,7 +64,7 @@ jobs:
         FLUENT_BIT_RELEASE=$(cut -d. -f1-2 <<< "${FB_WIN_VERSION}")
         wget "http://fluentbit.io/releases/${FLUENT_BIT_RELEASE}/td-agent-bit-${FB_WIN_VERSION}-win32".zip
         unzip td-agent-bit-${FB_WIN_VERSION}-win32.zip
-        zip -r $GITHUB_WORKSPACE/artifact/nrfb-windows-386.zip td-agent-bit-${FB_WIN_VERSION}-win32/bin   
+        zip -r -j $GITHUB_WORKSPACE/artifact/nrfb-windows-386.zip td-agent-bit-${FB_WIN_VERSION}-win32/bin   
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
@@ -95,7 +95,7 @@ jobs:
         FLUENT_BIT_RELEASE=$(cut -d. -f1-2 <<< "${FB_WIN_VERSION}")
         wget "http://fluentbit.io/releases/${FLUENT_BIT_RELEASE}/td-agent-bit-${FB_WIN_VERSION}-win64".zip
         unzip td-agent-bit-${FB_WIN_VERSION}-win64.zip
-        zip -r $GITHUB_WORKSPACE/artifact/nrfb-windows-amd64.zip td-agent-bit-${FB_WIN_VERSION}-win64/bin   
+        zip -r -j $GITHUB_WORKSPACE/artifact/nrfb-windows-amd64.zip td-agent-bit-${FB_WIN_VERSION}-win64/bin   
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
