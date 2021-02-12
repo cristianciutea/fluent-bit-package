@@ -136,16 +136,16 @@ jobs:
         echo "FB_WIN: ${{ env.FB_WIN_VERSION}}"
         echo "NR ARTIFACT: ${{ env.NRFB_ARTIFACT_VERSION }}"
     
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.NRFB_ARTIFACT_VERSION }}
-        release_name: nrfb v${{ env.NRFB_ARTIFACT_VERSION }}
-        draft: false
-        prerelease: false
+    # - name: Create Release
+    #   id: create_release
+    #   uses: actions/create-release@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: ${{ env.NRFB_ARTIFACT_VERSION }}
+    #     release_name: nrfb v${{ env.NRFB_ARTIFACT_VERSION }}
+    #     draft: false
+    #     prerelease: false
 
     - name: Upload Linux amd64 Package 
       uses: actions/upload-release-asset@v1
