@@ -40,8 +40,8 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: nrfb-linux-amd64.tar.gz
-        path: artifact
+        name: artifacts
+        path: artifact/nrfb-linux-amd64.tar.gz
     
     
   arm64_job:
@@ -94,8 +94,8 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: nrfb-linux-arm64.tar.gz
-        path: artifact
+        name: artifacts
+        path: artifact/nrfb-linux-arm64.tar.gz
 
   
   arm_job:
@@ -150,8 +150,8 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: nrfb-linux-arm.tar.gz
-        path: artifact
+        name: artifacts
+        path: artifact/nrfb-linux-arm.tar.gz
   
   win32:
 
@@ -181,8 +181,8 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: nrfb-windows-386.zip
-        path: artifact
+        name: artifacts
+        path: artifact/nrfb-windows-386.zip
 
   win64:
 
@@ -212,8 +212,8 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: nrfb-windows-amd64.zip
-        path: artifact
+        name: artifacts
+        path: artifact/nrfb-windows-amd64.zip
 
   publish:
 
@@ -263,7 +263,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-linux-amd64.tar.gz
+        asset_path: ./artifacts/nrfb-linux-amd64.tar.gz
         asset_name: fb-linux-amd64.tar.gz
         asset_content_type: application/gzip
 
@@ -273,7 +273,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-linux-arm64.tar.gz
+        asset_path: ./artifacts/nrfb-linux-arm64.tar.gz
         asset_name: fb-linux-arm64.tar.gz
         asset_content_type: application/gzip    
 
@@ -283,7 +283,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-linux-arm.tar.gz
+        asset_path: ./artifacts/nrfb-linux-arm.tar.gz
         asset_name: fb-linux-arm.tar.gz
         asset_content_type: application/gzip  
 
@@ -293,7 +293,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-windows-386.zip  
+        asset_path: ./artifacts/nrfb-windows-386.zip  
         asset_name: fb-windows-386.zip
         asset_content_type: application/zip     
               
@@ -303,6 +303,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./nrfb-windows-amd64.zip
+        asset_path: ./artifacts/nrfb-windows-amd64.zip
         asset_name: fb-windows-amd64.zip
         asset_content_type: application/zip                  
